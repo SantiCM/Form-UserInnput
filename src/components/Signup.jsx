@@ -1,30 +1,42 @@
+import { useState } from "react"
 
 // Forma de dar valores de los inputs con el FormData
 export default function Signup() {
 
-    // damos una varibale que es para la propiedad form para el onSumbit 
-    // damos el evento
-    const handleSubmit = (event) => {
+  // damos un estado para mostrar si la contraseña hace macth con la segunda contraseña en falso
+  const [passwordAreNotEqual, setPasswordAreNotEqual] = useState(false)
+
+  // damos una varibale que es para la propiedad form para el onSumbit 
+  // damos el evento
+  const handleSubmit = (event) => {
         
-        // damos el evento prevenido
-        event.preventDefault()
+    // damos el evento prevenido
+    event.preventDefault()
 
-        // damos una varibale donde da la nueva dat del event del target
-        const fd =  new FormData(event.target)
+    // damos una varibale donde da la nueva dat del event del target
+    const fd =  new FormData(event.target)
 
-        // esto es para que al utilizar el getAll en la cassila con su nombre especifico, se muestre
-        const acquisitionChannel = fd.getAll("acquisition")
+    // esto es para que al utilizar el getAll en la cassila con su nombre especifico, se muestre
+    const acquisitionChannel = fd.getAll("acquisition")
 
-        // damos la data como un objeto que viene de la entradas de la formData que entra
-        const data = Object.fromEntries(fd.entries())
+    // damos la data como un objeto que viene de la entradas de la formData que entra
+    const data = Object.fromEntries(fd.entries())
 
-        // damos la data de la casilla sera igual a la variable del getAll
-        data.acquisition = acquisitionChannel
+    // damos la data de la casilla sera igual a la variable del getAll
+    data.acquisition = acquisitionChannel
 
-        // Forma mas rapida de resetear el formulario a la hora de hacer el loginn
-        event.target.reset()
+    // si la data de la contraseña es diferente a la data del id de la primera contraseña
+    if(data.password !== data["confirm-password"]) {
 
-    }    
+      // el segundo estado sera true
+      setPasswordAreNotEqual(true)
+
+      // lo retornamos
+      return
+      
+    }
+
+  }    
     
     return (
       
@@ -38,7 +50,7 @@ export default function Signup() {
           
           <label htmlFor="email">Email</label>
           
-          <input id="email" type="email" name="email" />
+          <input id="email" type="email" name="email" required/>
         
         </div>
   
@@ -47,8 +59,10 @@ export default function Signup() {
           <div className="control">
             
             <label htmlFor="password">Password</label>
-            
-            <input id="password" type="password" name="password" />
+
+            {/*Se pueden utilizar props del navegador como el required = requerido o el minLength: que es minimo lo que una contraseña debe tener*/}
+
+            <input id="password" type="password" name="password" required minLength={6}/>
           
           </div>
   
@@ -63,8 +77,16 @@ export default function Signup() {
               type="password"
               
               name="confirm-password"
+
+              required
             
             />
+
+            <div className="control-error">
+
+              {passwordAreNotEqual && <p>Please macth passwords</p>}
+
+            </div>
           
           </div>
         
@@ -86,7 +108,7 @@ export default function Signup() {
   
         <div className="control">
           <label htmlFor="phone">What best describes your role?</label>
-          <select id="role" name="role">
+          <select id="role" name="role" required>
             <option value="student">Student</option>
             <option value="teacher">Teacher</option>
             <option value="employee">Employee</option>
@@ -107,7 +129,7 @@ export default function Signup() {
             <label htmlFor="google">Google</label>
           </div>
   
-          <div className="control">
+          <div className="control" required>
             <input
               type="checkbox"
               id="friend"
@@ -117,20 +139,20 @@ export default function Signup() {
             <label htmlFor="friend">Referred by friend</label>
           </div>
   
-          <div className="control">
+          <div className="control" required>
             <input type="checkbox" id="other" name="acquisition" value="other" />
             <label htmlFor="other">Other</label>
           </div>
         </fieldset>
   
-        <div className="control">
+        <div className="control" required>
           <label htmlFor="terms-and-conditions">
             <input type="checkbox" id="terms-and-conditions" name="terms" />I
             agree to the terms and conditions
           </label>
         </div>
   
-        <p className="form-actions">
+        <p className="form-actions" required>
           <button type="reset" className="button button-flat">
             Reset
           </button>
