@@ -5,11 +5,28 @@ import { useInput } from "../hooks/useInput";
 
 export default function StateLogin() {
 
-  const {value: emailValue, handleInputChange: handleEmailChange, handleInputBur: handleEmailBlur, hasError: emailHasError} = useInput("", (value) => isEmail(value) && isNotEmpty(value))
+  // damos una variable donde desustruramos las propiedades y las renombramos
+  const {
+      
+    value: emailValue, 
+    handleInputChange: handleEmailChange,
+    handleInputBur: handleEmailBlur, 
+    hasError: emailHasError
 
-  const {value: passwordValue, handleInputChange: handlePasswordChange, handleInputBur: handlePasswordBlur, hasError: passwordHasError} = useInput("", (value) => hasMinLength(value, 6 ))
+    // viene del hook, recibe una cadena vacia
+    // y el valor como argumento da el email que recibe el valor si es true damos el isNotEmpty y su valor
+  } = useInput("", (value) => isEmail(value) && isNotEmpty(value))
 
-  const passwordIsInvalid = didEdit.password && !hasMinLength(enteredValues.password, 6)
+  const {
+    
+    value: passwordValue, 
+    handleInputChange: handlePasswordChange, 
+    handleInputBur: handlePasswordBlur, 
+    hasError: passwordHasError
+
+    // viene del hook, recibe una cadena vacia
+    // y el valor como argumento que da e minLength que recibe el valor y el minimo sera 6 
+  } = useInput("", (value) => hasMinLength(value, 6 ))
 
   // se da una variable para el submit del formulario, dando el evento
   const handleSubmit = (event) => {
@@ -17,8 +34,10 @@ export default function StateLogin() {
     // evita el evento por defecto
     event.preventDefault()
 
+    // si el email da el error y el password tambien
     if(emailHasError || passwordHasError) {
-    
+      
+      // lo retornamos
       return
     
     }
@@ -44,7 +63,6 @@ export default function StateLogin() {
 
           onBlur={handleEmailBlur}
           
-          // damos el evento y mandamos la variable del email y el evento del target que viene del valor
           onChange={handleEmailChange} 
           
           value={emailValue}
@@ -63,10 +81,8 @@ export default function StateLogin() {
           
           name="password"
 
-          // damos el blur como funcion y le damos el identificador del email
           onBlur={handlePasswordBlur}
           
-          // damos el evento y mandamos la variable del email y el evento del target que viene del valor
           onChange={handlePasswordChange} 
           
           value={passwordValue}
