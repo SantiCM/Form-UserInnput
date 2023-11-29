@@ -1,8 +1,19 @@
 export default function Login() {
+
+  // se da una variable para el submit del formulario, dando el evento
+  const handleSubmit = (event) => {
+
+    // evita el evento por defecto
+    event.preventDefault()
+  
+    console.log("submittedf")
+  
+  }
   
   return (
-    
-    <form>
+
+    // damos el onSubmit 
+    <form onSubmit={handleSubmit}>
       
       <h2>Login</h2>
 
@@ -30,7 +41,7 @@ export default function Login() {
         
         <button className="button button-flat">Reset</button>
         
-        <button className="button">Login</button>
+        <button className="button" onClick={handleSubmit}>Login</button>
       
       </p>
     
