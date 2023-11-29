@@ -21,6 +21,9 @@ export default function Signup() {
         // damos la data de la casilla sera igual a la variable del getAll
         data.acquisition = acquisitionChannel
 
+        // Forma mas rapida de resetear el formulario a la hora de hacer el loginn
+        event.target.reset()
+
     }    
     
     return (

@@ -18,7 +18,11 @@ export default function Login() {
 
     console.log(enteredEmail, enteredPassword);
 
-    
+    // Forma no tan correcta de resetear con refs
+
+    //email.current.value = ""
+
+    //password.current.value = ""
   
   }
   

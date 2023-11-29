@@ -21,6 +21,15 @@ export default function Login() {
     event.preventDefault()
   
     console.log("Useremail" + enteredEmail)
+
+    // resetear el formulario al hacer el sing up
+    setEnteredValues({
+        
+        email: "",
+
+        password: "",
+    
+    })
   
   }
 
