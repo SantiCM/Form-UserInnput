@@ -1,18 +1,10 @@
-import { useState } from "react";
+import { useRef } from "react";
 
 export default function Login() {
 
-  //const [enteredEmail, setenteredEmail] = useState("")
+  const email = useRef()
 
-  //const [enteredPassword, setenteredPassword] = useState("")
-
-  const [enteredValues, setEnteredValues] = useState({
-  
-    email: "",
-
-    password: "",
-  
-  })
+  const password = useRef()
 
   // se da una variable para el submit del formulario, dando el evento
   const handleSubmit = (event) => {
@@ -20,32 +12,13 @@ export default function Login() {
     // evita el evento por defecto
     event.preventDefault()
   
-    console.log("Useremail" + enteredEmail)
-  
-  }
+    const enteredEmail = email.current.value
 
-  const handleInputChange = (identifier, value) => {
-  
-    setEnteredValues(prevValues => ({
+    const enteredPassword= password.current.value
+
+    console.log(enteredEmail, enteredPassword);
+
     
-      ...prevValues,
-
-      [identifier] : value
-    
-    }))
-  
-  }
-
-
-  const handleEmailChange = (event) => {
-  
-    setenteredEmail(event.target.value)
-  
-  }
-
-  const handlePasswordChange = (event) => {
-  
-    setenteredPassword(event.target.value)
   
   }
   
@@ -62,7 +35,7 @@ export default function Login() {
           
           <label htmlFor="email">Email</label>
           
-          <input id="email" type="email" name="email" onChange={(event) => handleInputChange("email", event.target.value)} value={enteredValues.email}/>
+          <input id="email" type="email" name="email" ref={email}/>
         
         </div>
 
@@ -70,7 +43,7 @@ export default function Login() {
           
           <label htmlFor="password">Password</label>
           
-          <input id="password" type="password" name="password" onChange={(event) => handleInputChange("password", event.target.value)} value={enteredValues.password}/>
+          <input id="password" type="password" name="password" ref={password}/>
         
         </div>
       
